@@ -1,12 +1,10 @@
-﻿namespace GymBE.Core.Entities
+﻿namespace GymBE.Core.Dtos.Membership
 {
-    public class Membership : BaseEntity
+    public class MembershipCreateDto
     {
         public string Name { get; set; }
         public double Price { get; set; }
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime EndDate { get; set; } = DateTime.Now;
-
-        public ICollection<User> Users { get; set; }
     }
 }
