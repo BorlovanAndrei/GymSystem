@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GymBE.Core.Context;
 using GymBE.Core.Dtos.Membership;
+using GymBE.Core.Dtos.Staff;
 using GymBE.Core.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,25 @@ namespace GymBE.Controllers
             var convertedMemberships = _mapper.Map<IEnumerable<MembershipGetDto>>(memberships);
 
             return Ok(convertedMemberships);
+        }
+
+
+        //Read by id
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<Membership>> GetMembershipById([FromRoute] long id)
+        {
+            var membership = await _context.Memberships.FirstOrDefaultAsync(q => q.ID == id);
+
+            if (membership is null)
+            {
+                return NotFound("Membership not found");
+
+            }
+            var convertedMembership = _mapper.Map<MembershipGetDto>(membership);
+
+
+            return Ok(convertedMembership);
         }
 
         //Update
